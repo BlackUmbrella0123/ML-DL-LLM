@@ -17,7 +17,7 @@ Oct 18, 2026 · @BlackUmbrella
 
 | 模型 | 年份 | 核心原理 | 變體／延伸 | 推薦資料集 | 取得方式 | 完成 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 感知器 Perceptron | 1958 | 線性分界、錯誤驅動更新 | 多層感知器 MLP | Iris（只取兩類） | sklearn `load_iris` | ☐ |
+| 感知器 Perceptron | 1958 | 線性分界、錯誤驅動更新 | 多層感知器 MLP | Iris（只取兩類） | sklearn `load_iris` | ☑ |
 | 線性回歸 | — | 最小平方法、梯度下降 | Ridge、Lasso、Elastic Net | California Housing | sklearn `fetch_california_housing` | ☐ |
 | 邏輯回歸 | — | Sigmoid、交叉熵 | Softmax 多分類 | Breast Cancer Wisconsin | sklearn `load_breast_cancer` | ☐ |
 | KNN | 1967 | 距離最近的 K 個鄰居投票 | KD-Tree、Ball Tree、近似最近鄰（FAISS、HNSW） | Digits（8×8 手寫數字） | sklearn `load_digits` | ☐ |
