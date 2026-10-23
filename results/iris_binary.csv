@@ -1,0 +1,4 @@
+time,model,accuracy,precision,recall,f1,roc_auc,params,notes
+2026-10-23 14:01,Perceptron (scratch),1.0,1.0,1.0,1.0,1.0,"{""lr"": 1.0, ""seed"": 42, ""scaled"": true, ""updates"": 1}",
+2026-10-23 14:03,Perceptron (sklearn),1.0,1.0,1.0,1.0,1.0,"{""random_state"": 42}",
+2026-10-23 14:05,Perceptron (sklearn),1.0,1.0,1.0,1.0,1.0,"{""random_state"": 42}",
