@@ -41,15 +41,23 @@ Oct 18, 2026 · @BlackUmbrella
 每章用「**問答 + TODO**」的方式進行，把時間花在最核心的地方：
 
 1. **Template 先寫好**：資料載入、繪圖、評估、紀錄等樣板程式由 Claude 先寫好，並先用完整解答跑過，確認 template 本身沒有 bug。
+   - **型別提示**：template 裡所有函數與方法的參數、回傳值都要加型別提示（例如 `np.ndarray`、`pd.DataFrame`、`ArrayLike`、`tuple[np.ndarray, np.ndarray]`、`int | None`、`Literal["uniform", "distance"]`），並用 docstring 寫明回傳什麼、陣列的 shape。
 2. **TODO 只留關鍵部分**：
    - **程式 TODO**：演算法的核心公式（例如正規方程的求解、梯度、參數更新、正則化的閉式解），通常一到數行。
    - **問答 TODO**：以註解回答的觀察題，要求把實驗結果連結到原理（例如「為什麼標準化後收斂變快？」、「係數正負號為何與相關係數相反？」）。
+   - **問答要有引導（鷹架）**：偏理論、需要額外背景（統計、數值分析、演算法）的題目，不只給結論式的提示，而是拆成 (a)(b)(c) 小題：
+     先問能直接從輸出讀出來的數字與趨勢，再補上必要的定義、原理或類比，最後才問「為什麼」與延伸。
+     目標是從自己的實驗數字一步步推到原理，而不是背一句「因為 A 所以 B」的去脈絡化結論。章節越後面的題目，引導要越完整。
 3. **自我檢查點**：每段附上可驗證的數字（例如「手寫與 sklearn 係數差異應 < 1e-10」），寫完自己就能判斷對錯。
 4. **回饋與修正**：寫完請 Claude 看，逐題指出對、錯、不夠精確之處；需要時由 Claude 用精確的語言補寫進註解，保留在 notebook 當作筆記。
 5. **章末小結**（notebook 最後一格 markdown）：
    - **結果表**：各方法的求解方式、關鍵性質與成績。
    - **核心觀念**：本章學到的重點，條列、精確、可回頭查。
    - **待補強**：本章沒深入的理論、數值方法、延伸模型與評估方式，用 checkbox 列出，之後回來學習時參考。
+   - **問答轉成 markdown**：作答與回饋階段，問答 TODO 一律寫在 code cell 的註解裡（不用切換編輯模式，最快）；
+     寫章末小結時，由 Claude 把每一格問答註解轉成 markdown cell，當作可回頭查的筆記：
+     題目放在引用區塊（`>`），答案在下方；公式改寫成 LaTeX（`$...$`、`$$...$$`），用 `|` 硬排的內容改成 markdown 表格，
+     Claude 補寫或修正的部分標成 **修正：**。內容不變，只換格式。程式 TODO 與 EDA 的「# 觀察：」短註解留在 code cell。
 6. **完成後**：README 對應列打勾 ☑，commit 一版。
 
 目標是學懂原理與精神，不追求學術上的完整；延伸內容一律放進「待補強」，不在當下展開。
@@ -80,7 +88,7 @@ Oct 18, 2026 · @BlackUmbrella
 | 感知器 Perceptron | 1958 | 線性分界、錯誤驅動更新 | 多層感知器 MLP | Iris（只取兩類） | sklearn `load_iris` | ✋ 手刻 | ✅ |
 | 線性回歸 | — | 最小平方法、梯度下降 | Ridge、Lasso、Elastic Net | California Housing | sklearn `fetch_california_housing` | ✋ 手刻 | ✅ |
 | 邏輯回歸 | — | Sigmoid、交叉熵 | Softmax 多分類 | Breast Cancer Wisconsin | sklearn `load_breast_cancer` | ✋ 手刻 | ✅ |
-| KNN | 1967 | 距離最近的 K 個鄰居投票 | KD-Tree、Ball Tree、近似最近鄰（FAISS、HNSW） | Digits（8×8 手寫數字） | sklearn `load_digits` | ✋ 手刻 | ☐ |
+| KNN | 1967 | 距離最近的 K 個鄰居投票 | KD-Tree、Ball Tree、近似最近鄰（FAISS、HNSW） | Digits（8×8 手寫數字） | sklearn `load_digits` | ✋ 手刻 | ✅ |
 | 決策樹 | 1986 | 資訊增益／Gini 分裂 | ID3 → C4.5 → CART | Titanic | sklearn `fetch_openml("titanic")` | ✋ 手刻 | ☐ |
 | 樸素貝氏 | — | 貝氏定理＋特徵獨立假設 | Gaussian、Multinomial、Bernoulli NB | SMS Spam Collection | UCI | ✋ 手刻 | ☐ |
 | SVM | 1995 | 最大間隔、Kernel Trick | SVR、One-Class SVM | Wine | sklearn `load_wine` | ✋ 手刻（SMO 簡化版） | ☐ |
